@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package eu.himeros.hocr;
+package eu.himeros.ocr.util;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -29,11 +29,8 @@ import org.jdom2.input.SAXBuilder;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class XmlWordListExtractor {
-        //String inFileName="/usr/local/hocrinfoaggregator/demetrius/demetrius-de_elocutione-u.xml";
-        //String outFileName="/usr/local/hocrinfoaggregator/demetrius/demetrius-de_elocutione.ngt.csv";
-    
-    public XmlWordListExtractor(String inFileName, String outFileName) throws Exception{
+public class WordListFromXmlExtractor {
+    public WordListFromXmlExtractor(String inFileName, String outFileName) throws Exception{
         init(inFileName,outFileName);
     }
     
@@ -58,7 +55,6 @@ public class XmlWordListExtractor {
     }
     
     public static void main(String[] args) throws Exception{
-        XmlWordListExtractor xwle=new XmlWordListExtractor(args[0],args[1]);
-        
+        WordListFromXmlExtractor xwle=new WordListFromXmlExtractor(args[0],args[1]);
     }
 }

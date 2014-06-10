@@ -7,13 +7,13 @@ import org.apache.lucene.search.spell.StringDistance;
  * Calculate the similarity between Latin strings
  * @author federico
  */
-public class LaStringDistance implements StringDistance {
+public class LatStringDistance implements StringDistance {
    
     /**
      * Constructor
      * 
      */
-    public LaStringDistance(){
+    public LatStringDistance(){
         super();
     }
 

@@ -26,7 +26,7 @@ import org.apache.lucene.util.Version;
  * Lucene Spellchecker
  * @author federico
  */
-public class LuceneSpellChecker {
+public class LuceneSpellChecker{
     static SpellChecker spellchecker;
     static HashMap<String,SpellChecker> hm=new HashMap();
 

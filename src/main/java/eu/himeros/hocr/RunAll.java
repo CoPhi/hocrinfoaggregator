@@ -36,13 +36,14 @@ public class RunAll {
 
     public void run(File dir) throws Exception {
         if(System.getProperty("grc.lucene.spellchecker")==null)System.setProperty("grc.lucene.spellchecker","/usr/local/hocrinfoaggregator/test/lucene/lucene-grc");
-        hocrInfoAggregator = new HocrInfoAggregator();
+        //hocrInfoAggregator = new HocrInfoAggregator();
         List<File> listFiles=Arrays.asList(dir.listFiles());
         Collections.sort(listFiles);
         for (File file : listFiles) {
             try {
                 if (file.getName().endsWith(".html") && !file.getName().endsWith(".ngt.html")) {
                     System.out.println(file.getAbsolutePath());
+                    hocrInfoAggregator = new HocrInfoAggregator();
                     hocrInfoAggregator.initFile(file.getAbsolutePath());
                     hocrInfoAggregator.parse();
                     hocrInfoAggregator.alignToGroundTruth();
@@ -56,11 +57,15 @@ public class RunAll {
         }
     }
 
+    /**
+     * 
+     * @param args
+     * @throws Exception 
+     */
     public static void main(String[] args) throws Exception {
-        XmlWordListExtractor.main(new String[]{"/usr/local/hocrinfoaggregator/test/demetrius/demetrius-de_elocutione-u.xml","/usr/local/hocrinfoaggregator/test/demetrius/demetrius-de_elocutione.ngt.csv"});
-        FlatXml.main(new String[]{"/usr/local/hocrinfoaggregator/test/demetrius/Demetrius-De_elocutione.book"});
-        NgtMaker.main(new String[]{"/usr/local/hocrinfoaggregator/test/demetrius/demetrius-de_elocutione.ngt.csv","/usr/local/hocrinfoaggregator/test/demetrius/Demetrius-De_elocutione.book"});
+        FlatXml.main(new String[]{args[0]});
+        NgtMaker.main(new String[]{args[1],args[0]});
         RunAll ra = new RunAll();
-        ra.run(new File("/usr/local/hocrinfoaggregator/test/demetrius/Demetrius-De_elocutione.book"));
+        ra.run(new File(args[0]));
     }
 }

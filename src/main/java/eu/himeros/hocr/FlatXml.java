@@ -22,6 +22,7 @@ package eu.himeros.hocr;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 import org.jdom2.Comment;
 import org.jdom2.Document;
@@ -66,6 +67,19 @@ public class FlatXml {
         page.setAttribute("id","i"+inFile.getName().substring(1).replace(".html",".png"));
         XPathExpression<Element> xpath = XPathFactory.instance().compile("//ns:div[@class='ocr_carea']", Filters.element(), null, Namespace.getNamespace("ns", "http://www.w3.org/1999/xhtml"));
         List<Element> careaElL = xpath.evaluate(oldPage);
+        if(careaElL.isEmpty()){
+            careaElL=new ArrayList();
+            Element pEl=new Element("p");
+            for(Element child:oldPage.getChildren()){
+                pEl.addContent(child.clone());
+            }
+            Element careaEl=new Element("div");
+            careaEl.setAttribute("class","ocr_carea");
+            careaEl.setAttribute("title","bbox 0 0 0 0");
+            careaEl.addContent(pEl);
+            careaElL.add(careaEl);
+            oldPage.addContent(careaEl);
+        }
         for (Element careaEl : careaElL) {
             page.addContent(new Comment("<div class=\""+careaEl.getAttributeValue("class")+"\" title=\""+careaEl.getAttributeValue("title")+"\">"));
             for(Element pEl:careaEl.getChildren()){
@@ -94,7 +108,9 @@ public class FlatXml {
         for(File file:dir.listFiles()){
             try{
                 if(!file.getName().endsWith(".html")) continue;
-                FlatXml fx=new FlatXml(file, new File(file.getAbsolutePath().replace("\\.html$",".1.html")));
+                //FlatXml fx=new FlatXml(file, new File(file.getAbsolutePath().replace(".html",".1.html")));
+                FlatXml fx=new FlatXml(file,file);
+                //FlatXml fx=new FlatXml(file, new File(file.getAbsolutePath()+"1.html"));
             }catch(Exception ex){
                 ex.printStackTrace(System.err);
                 System.err.println(file.getName());

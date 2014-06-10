@@ -153,6 +153,19 @@ public class Transcoder {
         makeTranscoder();
     }
 
+    /**
+     * Set the InputSteram (typically a file input stream) containing the table for transcodification,
+     * typically in the form:<br/>
+     * <code>\u005CuXXXX+ \u005Ct \u005CuYYYY+</code>,<br/> i.e. one or more
+     * unicode utf-8 chars or codes, followed by tabulation, followed by one or
+     * more utf-8 chars or codes<br/> \u005Cuxxxx (i.e. backslash followed by
+     * <code>u</code> followed by four lowercase
+     * <code>x</code>) on the right side of tabulation means that the code(s) on
+     * the left side must be cancelled. Examples of transcoder files are stored
+     * in resources/transcoders.
+     * 
+     * @param transIs 
+     */
     public void setTranscoder(InputStream transIs) {
         try {
             br = new BufferedReader(new InputStreamReader(transIs, "UTF-8"));
@@ -162,6 +175,9 @@ public class Transcoder {
         makeTranscoder();
     }
 
+    /**
+     * Create the transcoder, according to the parameters passed to setTranscoder()
+     */
     public void makeTranscoder() {
         try {
             String codeFrom;

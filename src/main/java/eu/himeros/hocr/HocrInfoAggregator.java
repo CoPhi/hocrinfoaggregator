@@ -22,7 +22,7 @@ import eu.himeros.alignment.HocrSimEvaluator;
 import eu.himeros.alignment.ObjectAligner;
 import eu.himeros.alignment.StringAligner;
 import eu.himeros.alignment.UpperCaseSimEvaluator;
-import eu.himeros.digitaledition.AlignedQuotationParser;
+import eu.himeros.ocr.ngt.NearGroundTruthParser;
 import eu.himeros.spellchecker.LuceneSpellChecker;
 import eu.himeros.text.GrcNormalizer;
 import eu.himeros.transcoder.Transcoder;
@@ -77,7 +77,7 @@ public class HocrInfoAggregator {
     private Element hyphenPart1 = null;
     private ContextFilterManager l1Fm = null; //TODO: generalize
     private HashMap<String, Integer> occHm = new HashMap<>(2048);
-    private AlignedQuotationParser aqp = null;
+    private NearGroundTruthParser ngtp = null;
     private Element nearGt = null;
     private HashMap<String, Element> nearGtHm = new HashMap<>(2048);
     private HashMap<Integer, Element> nearGtIdHm = new HashMap<>(2048);
@@ -128,10 +128,14 @@ public class HocrInfoAggregator {
         doc = builder.build(inFileName);
         root = doc.getRootElement();
         xmlns = root.getNamespace();
-        l1Fm = new GreekContextFilterMananger(); //TODO: generalize
-        aqp = new AlignedQuotationParser();
-        nearGt = aqp.parse(inFileName.substring(0, inFileName.length() - 5) + ".ngt.xml"); //TODO : generalize
-        makeNearGtHm();
+        l1Fm = new GrcContextFilterMananger(); //TODO: generalize
+        ngtp = new NearGroundTruthParser();
+        try{
+            nearGt = ngtp.parse(inFileName.substring(0, inFileName.length() - 5) + ".ngt.xml"); //TODO : generalize
+            makeNearGtHm();
+        }catch(Exception ex){
+            
+        }
     }
 
     private void makeNearGtHm() {
@@ -371,6 +375,7 @@ public class HocrInfoAggregator {
                             | "UCWORD".equals(element.getAttributeValue("class"))) {
                         String title = element.getAttributeValue("title");
                         title = nearGtHm.get(uc).getAttributeValue("text") + "\u261a " + title;
+                        System.out.println("####");
                         element.setAttribute("title", title);
                     }
                 }
@@ -430,6 +435,7 @@ public class HocrInfoAggregator {
                     uc2 = "";
                 }
                 if (!uc1.equals(uc2)) {
+                    System.out.println("$$$");
                     title = elRes.get(1).get(i).getAttributeValue("text") + "\u261a " + title;
                     elRes.get(0).get(i).setAttribute("title", title);
                 }

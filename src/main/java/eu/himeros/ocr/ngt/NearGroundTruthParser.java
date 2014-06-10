@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package eu.himeros.digitaledition;
+package eu.himeros.ocr.ngt;
 
 import eu.himeros.transcoder.Transcoder;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ import org.jdom2.output.XMLOutputter;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class AlignedQuotationParser {
+public class NearGroundTruthParser {
 
     private SAXBuilder builder = null;
     private Document docIn = null;
@@ -49,11 +49,11 @@ public class AlignedQuotationParser {
     private HashMap<String, Integer> occHm=null;
     private int id=1;
 
-    public AlignedQuotationParser() throws Exception{
+    public NearGroundTruthParser() throws Exception{
         init(defaultLang);
     }
     
-    public AlignedQuotationParser(String defaultLang) throws Exception {
+    public NearGroundTruthParser(String defaultLang) throws Exception {
         init(defaultLang);
     }
     
@@ -76,6 +76,7 @@ public class AlignedQuotationParser {
                 String text = ((Text) content).getText();
                 if (defaultLang.equals(langStack.peek())) {
                     parseTextLine(betaTrans.parse(text));
+                    //parseTextLine(text);
                 }
                 break;
             case Element:
@@ -171,8 +172,8 @@ public class AlignedQuotationParser {
     }
     
     public static void align(String inFileName, String outFileName) throws Exception{
-        AlignedQuotationParser aqp = new AlignedQuotationParser();
-        Element rootOut=aqp.parse(inFileName); //e.g. xxx002_001_ft-xi_frag.xml
+        NearGroundTruthParser ngtp = new NearGroundTruthParser();
+        Element rootOut=ngtp.parse(inFileName); //e.g. xxx002_001_ft-xi_frag.xml
         XMLOutputter xop=new XMLOutputter(Format.getPrettyFormat().setEncoding("UTF-8").setLineSeparator("\n").setIndent("   "));
         String output=xop.outputString(rootOut);
         System.out.println(output);        

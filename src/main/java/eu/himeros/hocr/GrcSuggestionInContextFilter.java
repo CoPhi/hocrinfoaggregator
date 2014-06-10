@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class GreekSuggestionInContextFilter extends SuggestionInContextFilter {
+public class GrcSuggestionInContextFilter extends SuggestionInContextFilter {
     private boolean capitalPredictable;
     private String accentedCharRegex=".*?[άάἌἄἍἅᾴᾌᾄᾍᾅέέἜἔἝἕήήἬἤἭἥῄᾜᾔᾝᾕΐίἴἵόόὌὄὍὅύὔὕΰώώὬὤὭὥῴᾬᾤᾭᾥὰἊἂἋἃᾲᾊᾂᾋᾃὲἚἒἛἓὴἪἢἫἣῂᾚᾒᾛᾓῒὶἲἳὸὊὂὋὃὺὒὓῢὼὪὢὫὣῲᾪᾢᾫᾣᾶἎἆἏἇᾷᾎᾆᾏᾇῆἮἦἯἧῇᾞᾖᾟᾗῗῧῶὮὦὯὧῷᾮᾦᾯᾧῖἶἷῦὖὗ].*?";
     private String graveCharRegex=".*?[ὰἊἂἋἃᾲᾊᾂᾋᾃὲἚἒἛἓὴἪἢἫἣῂᾚᾒᾛᾓῒὶἲἳὸὊὂὋὃὺὒὓῢὼὪὢὫὣῲᾪᾢᾫᾣ].*?";
@@ -43,7 +43,7 @@ public class GreekSuggestionInContextFilter extends SuggestionInContextFilter {
     private Normalizer2 normalizer2 = Normalizer2.getNFCInstance();
     private Pattern p=Pattern.compile("([^\u0300-\u03FF\u1F00-\u1FFF]*)([\u0300-\u03FF\u1F00-\u1FFF]+)([^\u0300-\u03FF\u1F00-\u1FFF]*.?.?)");
     
-    public GreekSuggestionInContextFilter(){
+    public GrcSuggestionInContextFilter(){
         trans=new Transcoder();
         trans.setTranscoder(this.getClass().getResourceAsStream("/eu/himeros/resources/transcoders/lowercase2uppercase.txt"));
         trans.reverse();

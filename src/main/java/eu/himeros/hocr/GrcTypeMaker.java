@@ -23,9 +23,9 @@ package eu.himeros.hocr;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class GreekTypeMaker implements TypeMaker{
+public class GrcTypeMaker implements TypeMaker{
     
-    public GreekTypeMaker(){
+    public GrcTypeMaker(){
     }
  
     @Override

@@ -28,5 +28,4 @@ import org.jdom2.Element;
 public interface ContextFilterManager {
     public void addSuitableElement(Element el);
     public void adjustPreviousSuitableElement();
-
 }

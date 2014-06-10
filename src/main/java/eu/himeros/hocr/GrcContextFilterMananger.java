@@ -25,17 +25,17 @@ import org.jdom2.Element;
  *
  * @author federico[DOT]boschetti[DOT]73[AT]gmail[DOT]com
  */
-public class GreekContextFilterMananger implements ContextFilterManager {
+public class GrcContextFilterMananger implements ContextFilterManager {
 
     private LinkedList<Element> queue;
-    private GreekSuggestionInContextFilter gsicf;
+    private GrcSuggestionInContextFilter gsicf;
 
-    public GreekContextFilterMananger() {
+    public GrcContextFilterMananger() {
         super();
         queue = new LinkedList<>();
         queue.add(new Element("void"));
         queue.add(new Element("void"));
-        gsicf = new GreekSuggestionInContextFilter();
+        gsicf = new GrcSuggestionInContextFilter();
     }
 
     @Override
